@@ -1,0 +1,496 @@
+<title>CV | Poushali Majumder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg:      #f8fafc;
+  --surface: #ffffff;
+  --ink:     #0f172a;
+  --ink2:    #334155;
+  --ink3:    #64748b;
+  --rule:    #e2e8f0;
+  --accent:  #0d8fcc;
+  --accent2: #0369a1;
+  --tag-bg:  #e0f2fe;
+  --tag-fg:  #0369a1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:      #0f172a;
+    --surface: #1e293b;
+    --ink:     #f1f5f9;
+    --ink2:    #cbd5e1;
+    --ink3:    #94a3b8;
+    --rule:    #334155;
+    --accent:  #38bdf8;
+    --accent2: #7dd3fc;
+    --tag-bg:  #0c4a6e;
+    --tag-fg:  #38bdf8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:      #0f172a;
+  --surface: #1e293b;
+  --ink:     #f1f5f9;
+  --ink2:    #cbd5e1;
+  --ink3:    #94a3b8;
+  --rule:    #334155;
+  --accent:  #38bdf8;
+  --accent2: #7dd3fc;
+  --tag-bg:  #0c4a6e;
+  --tag-fg:  #38bdf8;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 36px 16px 72px;
+  min-height: 100vh;
+}
+
+/* ── Toolbar ─────────────────────────────────────── */
+.toolbar {
+  max-width: 820px;
+  margin: 0 auto 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.toolbar-left {
+  font-size: 13px;
+  color: var(--ink3);
+  font-weight: 500;
+}
+.toolbar-right { display: flex; gap: 8px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  text-decoration: none;
+  transition: opacity .15s, background .15s;
+}
+.btn:hover { opacity: .85; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-ghost   { background: var(--surface); color: var(--ink2); border: 1px solid var(--rule); }
+
+/* ── Page card ───────────────────────────────────── */
+.page {
+  background: var(--surface);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 52px 52px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  border: 1px solid var(--rule);
+}
+
+/* ── Header ──────────────────────────────────────── */
+.cv-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 28px;
+}
+.cv-name {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -.6px;
+  color: var(--ink);
+  line-height: 1;
+}
+.cv-role {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 6px;
+  letter-spacing: .2px;
+}
+.cv-contact {
+  font-size: 12.5px;
+  color: var(--ink3);
+  line-height: 2;
+  text-align: right;
+}
+.cv-contact a { color: var(--accent); text-decoration: none; }
+.cv-contact a:hover { text-decoration: underline; }
+
+/* ── Sections ────────────────────────────────────── */
+section { margin-bottom: 26px; }
+section:last-child { margin-bottom: 0; }
+
+.sec-head {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 5px;
+  margin-bottom: 14px;
+}
+
+p { font-size: 13.5px; line-height: 1.75; color: var(--ink2); }
+
+/* ── Jobs ────────────────────────────────────────── */
+.job { margin-bottom: 20px; }
+.job:last-child { margin-bottom: 0; }
+.job-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.job-title { font-weight: 600; font-size: 14px; color: var(--ink); }
+.job-date  { font-size: 12px; color: var(--ink3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.job-org   { font-size: 13px; color: var(--ink3); margin: 2px 0 8px; font-style: italic; }
+
+ul { padding-left: 18px; }
+ul li {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--ink2);
+  margin-bottom: 4px;
+}
+ul li:last-child { margin-bottom: 0; }
+ul li::marker { color: var(--accent); }
+
+/* ── Skills grid ─────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 28px;
+}
+.skill-row { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.skill-label { font-weight: 600; color: var(--ink); }
+
+/* ── Two-col ─────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+}
+
+/* ── Education ───────────────────────────────────── */
+.edu { margin-bottom: 14px; }
+.edu:last-child { margin-bottom: 0; }
+.edu-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.edu-qual { font-weight: 600; font-size: 13.5px; color: var(--ink); }
+.edu-date { font-size: 12px; color: var(--ink3); font-variant-numeric: tabular-nums; }
+.edu-inst { font-size: 13px; color: var(--ink3); margin-top: 1px; font-style: italic; }
+.edu-note { font-size: 12.5px; color: var(--ink3); margin-top: 2px; }
+
+/* ── Certs ───────────────────────────────────────── */
+.cert-list { list-style: none; padding-left: 0; }
+.cert-list li {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 5px;
+}
+.cert-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── Leadership / Languages ──────────────────────── */
+.mini-row {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink2);
+  margin-bottom: 5px;
+  line-height: 1.55;
+}
+.mini-row:last-child { margin-bottom: 0; }
+.mini-label { font-weight: 600; color: var(--ink); min-width: 75px; flex-shrink: 0; }
+
+/* ── Dark toggle ─────────────────────────────────── */
+.theme-btn {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  color: var(--ink3);
+  font-size: 15px;
+  line-height: 1;
+  transition: background .15s;
+}
+.theme-btn:hover { background: var(--rule); }
+
+/* ── Print ───────────────────────────────────────── */
+@media print {
+  body { background: #fff; padding: 0; color: #000; }
+  .toolbar { display: none; }
+  .page {
+    max-width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+    padding: 20px 24px;
+  }
+  a { color: inherit; text-decoration: none; }
+  :root { --bg: #fff; --surface: #fff; --ink: #000; --ink2: #333; --ink3: #666; --rule: #ccc; --accent: #0369a1; }
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .page { padding: 28px 22px; }
+  .cv-header { grid-template-columns: 1fr; }
+  .cv-contact { text-align: left; }
+  .two-col, .skills-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <span class="toolbar-left">Poushali Majumder &nbsp;·&nbsp; CV</span>
+  <div class="toolbar-right">
+    <button class="theme-btn" id="themeBtn" title="Toggle dark mode">🌙</button>
+    <button class="btn btn-ghost" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / PDF
+    </button>
+    <a class="btn btn-primary" href="https://poushali-m.github.io" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Portfolio
+    </a>
+  </div>
+</div>
+
+<!-- CV card -->
+<div class="page">
+
+  <!-- Header -->
+  <header class="cv-header">
+    <div>
+      <div class="cv-name">Poushali Majumder</div>
+      <div class="cv-role">IT Support &nbsp;|&nbsp; Service Desk &nbsp;|&nbsp; First-Line Technical Support</div>
+    </div>
+    <div class="cv-contact">
+      London, UK<br>
+      07368 505379<br>
+      <a href="mailto:poushalisofficial@gmail.com">poushalisofficial@gmail.com</a><br>
+      <a href="https://poushali-m.github.io" target="_blank">poushali-m.github.io</a><br>
+      <a href="https://linkedin.com/in/poushali23" target="_blank">linkedin.com/in/poushali23</a>
+    </div>
+  </header>
+
+  <!-- Profile -->
+  <section>
+    <div class="sec-head">Profile</div>
+    <p>BSc Cyber Security graduate (First Class Honours, UWL 2026) with hands-on experience in user account management, endpoint configuration, and IT security operations. Proven ability to manage Joiners, Movers, and Leavers workflows in Microsoft Entra ID, write technical SOPs, and translate security findings into clear, actionable reports. Comfortable supporting users across Windows and Linux environments, resolving tickets, and keeping systems running smoothly under pressure. Looking to grow within an IT support or service desk team where technical rigour and calm under pressure are valued.</p>
+  </section>
+
+  <!-- Experience -->
+  <section>
+    <div class="sec-head">Experience</div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Cyber Security Intern</span>
+        <span class="job-date">Aug 2024 – Dec 2024</span>
+      </div>
+      <div class="job-org">CyPro, London</div>
+      <ul>
+        <li>Owned the Joiners, Movers, and Leavers (JML) process for approximately 30 user identities in Microsoft Entra ID, assigning roles, enforcing MFA, and managing secure offboarding to protect against unauthorised access.</li>
+        <li>Configured and deployed endpoint security settings, ensuring devices met organisational policy before being added to the environment.</li>
+        <li>Produced 10 formal security assessment reports, including OSINT investigations, vulnerability assessments (CVSS scoring, Nmap scanning), and cyber threat intelligence briefings.</li>
+        <li>Facilitated 2 tabletop incident-response exercises, documenting response playbooks and post-exercise lessons learned.</li>
+        <li>Developed and maintained technical SOPs to standardise security operations and support knowledge transfer within the team.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Overseas Investment Manager (Contract)</span>
+        <span class="job-date">Jan 2025 – Aug 2026</span>
+      </div>
+      <div class="job-org">Triple Alfa, London</div>
+      <ul>
+        <li>Handled 200+ inbound and outbound calls a day with international clients, managing queries professionally and logging actions accurately.</li>
+        <li>Maintained structured records of client communications and followed up on outstanding actions to ensure nothing fell through the cracks.</li>
+        <li>Prepared clear correspondence for client-facing and internal use, adapting tone and detail for different audiences.</li>
+        <li>Used SEMrush, HubSpot, and LinkedIn Sales Navigator to research and identify high-potential prospective clients with strong reputations, and to track outreach.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Patient Services</span>
+        <span class="job-date">Jan 2025 – Present</span>
+      </div>
+      <div class="job-org">Cromwell Hospital, London</div>
+      <ul>
+        <li>Deliver responsive front-line support to patients, visitors, and clinical staff in a high-pressure private healthcare environment.</li>
+        <li>Coordinate closely with ward teams to ensure accurate patient information is recorded and communicated, maintaining strict confidentiality standards.</li>
+        <li>Developed strong communication, time management, and problem-solving skills directly applicable to a customer-facing IT support role.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Technology Intern</span>
+        <span class="job-date">Jun 2024</span>
+      </div>
+      <div class="job-org">Bright Network, Remote</div>
+      <ul>
+        <li>Completed structured technology programme covering software development fundamentals, cloud concepts, and networking basics.</li>
+        <li>Collaborated on a group project presenting a technology solution to a panel of industry professionals.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Waitress</span>
+        <span class="job-date">Apr 2023 – Jan 2025</span>
+      </div>
+      <div class="job-org">Banana Tree, London</div>
+      <ul>
+        <li>Provided attentive customer service in a busy restaurant, handling multiple priorities simultaneously and resolving issues calmly and efficiently.</li>
+        <li>Demonstrated reliability and professional conduct over nearly two years of part-time employment alongside full-time studies.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- Technical Skills -->
+  <section>
+    <div class="sec-head">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-label">Identity &amp; Access:</span> Microsoft Entra ID / Azure AD, MFA, RBAC, SSO, JML lifecycle management</div>
+      <div class="skill-row"><span class="skill-label">ITSM &amp; Ticketing:</span> ServiceNow, incident logging, SLA management, escalation procedures</div>
+      <div class="skill-row"><span class="skill-label">Operating Systems:</span> Windows 10/11, Linux (Ubuntu, Kali), Active Directory basics</div>
+      <div class="skill-row"><span class="skill-label">Endpoint &amp; Device Support:</span> BitLocker, software installation and updates, driver installation and troubleshooting</div>
+      <div class="skill-row"><span class="skill-label">Networking:</span> TCP/IP, DNS, DHCP, VPN, basic firewall and routing concepts</div>
+      <div class="skill-row"><span class="skill-label">Security Tools:</span> Nmap, CVSS, ELK Stack SIEM, MITRE ATT&amp;CK framework, OSINT</div>
+      <div class="skill-row"><span class="skill-label">Scripting:</span> PowerShell, Bash, Python (automation and data analysis)</div>
+      <div class="skill-row"><span class="skill-label">Cloud:</span> Microsoft Azure (fundamentals), cloud identity and access concepts</div>
+      <div class="skill-row"><span class="skill-label">Productivity &amp; CRM:</span> Microsoft 365 (Word, Excel, PowerPoint, SharePoint), SEMrush, HubSpot, LinkedIn Sales Navigator, KPI tracking</div>
+    </div>
+  </section>
+
+  <!-- Education + Certs -->
+  <div class="two-col">
+    <section>
+      <div class="sec-head">Education</div>
+      <div class="edu">
+        <div class="edu-top">
+          <span class="edu-qual">BSc Cyber Security</span>
+          <span class="edu-date">2023 – 2026</span>
+        </div>
+        <div class="edu-inst">University of West London (UWL)</div>
+        <div class="edu-note">First Class Honours</div>
+        <div class="edu-note">Dissertation: Insider Threat Detection using behavioural risk-scoring (Python, scikit-learn, Streamlit)</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">Certifications &amp; Training</div>
+      <ul class="cert-list">
+        <li>ITIL 4 Foundation (in progress, 2026)</li>
+        <li>IT Auditing &amp; GRC Bootcamp, ThinkCloudly</li>
+        <li>Microsoft Word Essential Training, LinkedIn Learning</li>
+        <li>Excel Essential Training, LinkedIn Learning</li>
+        <li>Python Quick Start, Birdify</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Projects -->
+  <section style="margin-top:26px">
+    <div class="sec-head">Key Projects</div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Home Lab: ELK Stack SIEM</span>
+        <span class="job-date">Ongoing</span>
+      </div>
+      <ul>
+        <li>Built a self-hosted SIEM using Elasticsearch, Logstash, Kibana, Filebeat, and ElastAlert 2 to detect real attack patterns.</li>
+        <li>Wrote detection rules aligned to MITRE ATT&amp;CK techniques including brute-force (T1110), privilege escalation (T1548), and port scanning (T1046).</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Insider Threat Behavioural Risk-Scoring Model</span>
+        <span class="job-date">2025 – 2026</span>
+      </div>
+      <ul>
+        <li>Dissertation project: trained a machine-learning model (Python, scikit-learn) to score user behaviour anomalies and flag insider threats.</li>
+        <li>Built an interactive Streamlit dashboard for analysts to visualise risk scores in real time.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-top">
+        <span class="job-title">Microsoft Entra ID: IAM Lab</span>
+        <span class="job-date">2026</span>
+      </div>
+      <ul>
+        <li>Completed a hands-on home lab simulating the full Joiners, Movers, and Leavers (JML) lifecycle in Microsoft Entra ID, mirroring real-world IT support workflows.</li>
+        <li>Provisioned user accounts, assigned RBAC roles (Security Reader), created and managed security groups (IT-Analysts, SOC-Analysts), and performed secure offboarding by disabling accounts and revoking all access.</li>
+        <li>Documented each stage with screenshots and a structured README; available at github.com/poushali-m/entra-id-iam-lab</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Leadership + Languages -->
+  <div class="two-col" style="margin-top:26px">
+    <section>
+      <div class="sec-head">Leadership &amp; Volunteering</div>
+      <div class="mini-row"><span class="mini-label">Ambassador</span> International Student Ambassador, University of West London</div>
+      <div class="mini-row"><span class="mini-label">Mentor</span> Peer Mentor, University of West London</div>
+      <div class="mini-row"><span class="mini-label">Rep</span> Course Representative, University of West London</div>
+    </section>
+
+    <section>
+      <div class="sec-head">Languages</div>
+      <div class="mini-row"><span class="mini-label">English</span> Fluent</div>
+      <div class="mini-row"><span class="mini-label">Bengali</span> Native</div>
+      <div class="mini-row"><span class="mini-label">Hindi</span> Fluent</div>
+    </section>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const saved = (() => { try { return localStorage.getItem('cv-theme'); } catch(e) { return null; } })();
+  if (saved) { root.dataset.theme = saved; btn.textContent = saved === 'dark' ? '☀️' : '🌙'; }
+  btn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('cv-theme', next); } catch(e) {}
+  });
+</script>
