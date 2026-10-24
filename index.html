@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Portfolio | poushali-m.github.io</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap">
+
+<style>
+:root {
+  --bg:       #f5f6f9;
+  --surface:  #ffffff;
+  --border:   #e2e5ed;
+  --fg:       #141820;
+  --fg-2:     #4a5066;
+  --fg-3:     #7a82a0;
+  --accent:   #0d8fcc;
+  --accent-2: #06b6d4;
+  --accent-glow: rgba(13,143,204,.15);
+  --tag-bg:   #eaf5fb;
+  --tag-fg:   #0a6d9e;
+  --nav-w:    240px;
+  --r:        10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #0d1117;
+    --surface:  #161b26;
+    --border:   #252d3d;
+    --fg:       #e8ecf4;
+    --fg-2:     #9aa3be;
+    --fg-3:     #5c6580;
+    --accent:   #38bdf8;
+    --accent-2: #22d3ee;
+    --accent-glow: rgba(56,189,248,.12);
+    --tag-bg:   #0f2233;
+    --tag-fg:   #38bdf8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #0d1117;
+  --surface:  #161b26;
+  --border:   #252d3d;
+  --fg:       #e8ecf4;
+  --fg-2:     #9aa3be;
+  --fg-3:     #5c6580;
+  --accent:   #38bdf8;
+  --accent-2: #22d3ee;
+  --accent-glow: rgba(56,189,248,.12);
+  --tag-bg:   #0f2233;
+  --tag-fg:   #38bdf8;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--nav-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 32px 24px;
+  gap: 32px;
+  z-index: 100;
+  overflow-y: auto;
+}
+.logo { display: flex; flex-direction: column; gap: 4px; }
+.logo-name { font-size: 14px; font-weight: 700; letter-spacing: .04em; color: var(--fg); text-transform: uppercase; }
+.logo-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+nav { display: flex; flex-direction: column; gap: 2px; }
+nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: 7px;
+  font-size: 13px; font-weight: 500; color: var(--fg-2);
+  text-decoration: none; transition: all .18s;
+}
+nav a:hover, nav a.active { background: var(--accent-glow); color: var(--accent); }
+nav a svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .8; }
+.sidebar-links { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+.sidebar-link { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--fg-3); text-decoration: none; transition: color .15s; }
+.sidebar-link:hover { color: var(--accent); }
+.sidebar-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+.sidebar-status { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--fg-3); font-family: 'DM Mono', monospace; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.2); animation: pulse 2s infinite; flex-shrink: 0; }
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+  50%      { box-shadow: 0 0 0 6px rgba(34,197,94,.05); }
+}
+
+#topbar {
+  display: none;
+  position: sticky; top: 0; z-index: 200;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  align-items: center; justify-content: space-between;
+}
+#topbar .logo-name { font-size: 13px; }
+#menu-btn { background: none; border: none; cursor: pointer; color: var(--fg); padding: 4px; }
+#mobile-nav {
+  display: none;
+  position: fixed; inset: 0; z-index: 300;
+  background: var(--surface);
+  padding: 24px 24px;
+  flex-direction: column; gap: 8px;
+  overflow-y: auto;
+}
+#mobile-nav.open { display: flex; }
+#mobile-close { align-self: flex-end; background: none; border: none; cursor: pointer; color: var(--fg); padding: 4px; margin-bottom: 16px; }
+
+#main { margin-left: var(--nav-w); padding: 0 48px 80px; max-width: 860px; }
+section { padding-top: 80px; }
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+.section-title { font-size: 26px; font-weight: 700; line-height: 1.2; color: var(--fg); text-wrap: balance; margin-bottom: 28px; }
+.divider { height: 1px; background: var(--border); margin-bottom: 28px; }
+
+#hero { padding-top: 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+.hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+.hero-name { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.05; color: var(--fg); letter-spacing: -.02em; margin-bottom: 16px; }
+.hero-name span { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-tagline { font-size: 17px; line-height: 1.6; color: var(--fg-2); max-width: 480px; margin-bottom: 28px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .18s; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--fg-2); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--border); flex-shrink: 0; }
+.hero-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: var(--tag-bg); color: var(--tag-fg); border-radius: 20px; font-size: 12px; font-weight: 500; }
+.chip svg { width: 12px; height: 12px; }
+
+.stats-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-top: 40px; }
+.stat { background: var(--surface); padding: 20px 16px; display: flex; flex-direction: column; gap: 4px; }
+.stat-num { font-size: 22px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; font-family: 'DM Mono', monospace; }
+.stat-label { font-size: 11px; color: var(--fg-3); }
+
+.about-body { font-size: 15px; color: var(--fg-2); line-height: 1.75; display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+.about-body strong { color: var(--fg); }
+
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; }
+.skill-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.skill-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.skill-icon svg { width: 16px; height: 16px; color: var(--accent); }
+.skill-cat { font-size: 12px; font-weight: 600; color: var(--fg); }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag { font-size: 11px; padding: 3px 9px; background: var(--tag-bg); color: var(--tag-fg); border-radius: 4px; font-family: 'DM Mono', monospace; }
+
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: grid; grid-template-columns: 100px 1fr; gap: 0 24px; position: relative; }
+.tl-item:not(:last-child)::after { content: ''; position: absolute; left: 107px; top: 32px; bottom: -8px; width: 1px; background: var(--border); }
+.tl-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--fg-3); text-align: right; padding-top: 6px; letter-spacing: .04em; line-height: 1.4; }
+.tl-dot { position: absolute; left: 100px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+.tl-body { padding-bottom: 32px; }
+.tl-role { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+.tl-company { font-size: 12px; color: var(--accent); margin-bottom: 10px; font-family: 'DM Mono', monospace; }
+.tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.tl-bullets li { font-size: 13px; color: var(--fg-2); line-height: 1.55; padding-left: 14px; position: relative; }
+.tl-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 1px; }
+.tl-badge { display: inline-flex; align-items: center; font-size: 10px; padding: 2px 8px; background: var(--tag-bg); color: var(--tag-fg); border-radius: 4px; margin-left: 8px; font-family: 'DM Mono', monospace; vertical-align: middle; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 16px; }
+.proj-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: all .2s; }
+.proj-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
+.proj-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.proj-icon { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); background: var(--accent-glow); padding: 4px 8px; border-radius: 5px; flex-shrink: 0; }
+.proj-arrow { color: var(--fg-3); font-size: 14px; transition: color .15s; }
+.proj-card:hover .proj-arrow { color: var(--accent); }
+.proj-title { font-size: 14px; font-weight: 600; color: var(--fg); }
+.proj-desc { font-size: 12.5px; color: var(--fg-2); line-height: 1.55; flex: 1; }
+.proj-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.proj-tag { font-size: 10px; padding: 2px 8px; background: var(--tag-bg); color: var(--tag-fg); border-radius: 4px; font-family: 'DM Mono', monospace; }
+
+.edu-grid { display: flex; flex-direction: column; gap: 14px; }
+.edu-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: start; }
+.edu-title { font-size: 13.5px; font-weight: 600; color: var(--fg); }
+.edu-org { font-size: 12px; color: var(--fg-2); }
+.edu-date { font-size: 11px; color: var(--fg-3); font-family: 'DM Mono', monospace; text-align: right; grid-row: span 2; padding-top: 2px; }
+.edu-highlight { border-left: 3px solid var(--accent); }
+
+.cert-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.cert-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 12px; text-decoration: none; color: var(--fg-2); transition: all .15s; }
+.cert-pill:hover { border-color: var(--accent); color: var(--accent); }
+.cert-pill svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; }
+
+.blog-list { display: flex; flex-direction: column; gap: 12px; }
+.blog-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; display: flex; align-items: flex-start; gap: 16px; text-decoration: none; transition: border-color .15s; }
+.blog-item:hover { border-color: var(--accent); }
+.blog-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg-3); padding-top: 2px; flex-shrink: 0; }
+.blog-title { font-size: 13.5px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+.blog-desc { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+.blog-arrow { margin-left: auto; color: var(--fg-3); padding-top: 2px; font-size: 14px; flex-shrink: 0; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; }
+.contact-label { font-size: 10px; color: var(--fg-3); font-family: 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+.contact-val { font-size: 13px; color: var(--fg); font-weight: 500; word-break: break-all; }
+
+footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--fg-3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 720px) {
+  #sidebar { display: none; }
+  #topbar  { display: flex; }
+  #main    { margin-left: 0; padding: 0 16px 60px; }
+  section  { padding-top: 48px; }
+  #hero    { grid-template-columns: 1fr; }
+  .hero-photo { display: none; }
+  .stats-strip { grid-template-columns: repeat(2,1fr); }
+  .tl-item { grid-template-columns: 72px 1fr; }
+  .tl-item::after { left: 78px; }
+  .tl-dot  { left: 70px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<!-- MOBILE TOPBAR -->
+<div id="topbar">
+  <div class="logo">
+    <span class="logo-name">Poushali Majumder</span>
+  </div>
+  <button id="menu-btn" aria-label="Open menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div id="mobile-nav" role="dialog" aria-modal="true">
+  <button id="mobile-close" aria-label="Close menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="logo" style="margin-bottom:16px">
+    <span class="logo-name">Poushali Majumder</span>
+    <span class="logo-role">IT Support · Service Desk</span>
+  </div>
+  <nav id="mobile-nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#casestudies">Case Studies</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="sidebar-status" style="margin-top:24px">
+    <span class="status-dot"></span>
+    Open to IT Support roles · London
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="logo">
+    <span class="logo-name">Poushali Majumder</span>
+    <span class="logo-role">IT Support · Service Desk</span>
+  </div>
+  <nav id="sidebar-nav">
+    <a href="#about" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      About
+    </a>
+    <a href="#skills">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Skills
+    </a>
+    <a href="#experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      Experience
+    </a>
+    <a href="#casestudies">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Case Studies
+    </a>
+    <a href="#projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Projects
+    </a>
+    <a href="#education">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Education
+    </a>
+    <a href="#certifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+      Certifications
+    </a>
+    <a href="#blog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Blog
+    </a>
+    <a href="#contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Contact
+    </a>
+  </nav>
+  <div class="sidebar-links">
+    <div class="sidebar-status">
+      <span class="status-dot"></span>
+      Open to work · London
+    </div>
+    <a href="https://linkedin.com/in/poushali23" target="_blank" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/poushali-m" target="_blank" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="cv.html" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      View CV
+    </a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- HERO -->
+  <section id="about">
+    <div id="hero">
+      <div>
+        <p class="hero-eyebrow">IT Support &amp; Service Desk · BSc Cyber Security (First Class) · UWL</p>
+        <h1 class="hero-name">I keep systems<br><span>running smoothly.</span></h1>
+        <p class="hero-tagline">IT Support professional based in London. I troubleshoot fast, document clearly, and bring a security-aware mindset to every ticket. Understanding the underlying system matters as much as fixing the problem.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Get in touch
+          </a>
+          <a href="cv.html" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            View CV
+          </a>
+        </div>
+        <div class="hero-chips">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Microsoft Entra ID
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Active Directory
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Azure IAM
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Python
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+            Windows Admin
+          </span>
+        </div>
+      </div>
+      <img src="photo.jpg" alt="Poushali Majumder" class="hero-photo" onerror="this.style.display='none'">
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-strip">
+      <div class="stat">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Security reports written</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">9</span>
+        <span class="stat-label">GitHub projects</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1st</span>
+        <span class="stat-label">First Class Honours</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Years support experience</span>
+      </div>
+    </div>
+
+    <!-- About body -->
+    <div style="margin-top:40px">
+      <p class="section-label">About me</p>
+      <div class="about-body">
+        <p>I'm a <strong>First Class Cyber Security graduate</strong> looking for my first dedicated IT Support or Service Desk role in London. My degree gave me a solid grasp of how systems, networks, and identity infrastructure work, but the hands-on work that shaped how I actually think about IT.</p>
+        <p>During my <strong>internship at CyPro</strong>, I managed the full joiners, movers, and leavers process using <strong>Microsoft Entra ID</strong>: creating accounts, assigning licences, configuring MFA, and writing the SOPs the rest of the team used. I was the person colleagues came to when something wasn't working, and I learnt quickly that clear documentation is just as important as the fix.</p>
+        <p>Outside tech roles, I've spent two years in fast-paced service environments at Cromwell Hospital and Banana Tree, both of which demand composure under pressure, accurate record-keeping, and reliable follow-through. I bring that same mindset to every support ticket.</p>
+        <p>I'm <strong>security-aware by training</strong>. I understand phishing vectors, IAM risks, and why access hygiene matters, which means I don't just resolve tickets; I resolve them without creating new vulnerabilities.</p>
+      </div>
+    </div>
+
+    <!-- Home lab -->
+    <div style="margin-top:32px">
+      <p class="section-label" style="margin-bottom:12px">Home Lab</p>
+      <div class="about-body" style="max-width:640px">
+        <p>Outside of work I run a personal security lab: a virtualised environment with Kali Linux and Ubuntu where I simulate attack scenarios, practise log analysis, and build detection tooling. Current focus: extending my <strong>ELK Stack SIEM</strong> setup with custom detection rules, and working through <strong>Hack The Box</strong> Linux and Windows Fundamentals modules to sharpen hands-on OS skills.</p>
+        <p>Building the lab is deliberate. It keeps skills sharp between roles and gives me real artefacts to talk through in interviews, not just theory.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Technical skills</p>
+    <h2 class="section-title">What I work with</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="skill-cat">Identity &amp; Access Management</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Microsoft Entra ID</span>
+          <span class="skill-tag">Active Directory</span>
+          <span class="skill-tag">MFA</span>
+          <span class="skill-tag">JML Process</span>
+          <span class="skill-tag">RBAC</span>
+          <span class="skill-tag">SSO</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span class="skill-cat">Endpoint &amp; ITSM</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Windows 10/11</span>
+          <span class="skill-tag">Linux (Ubuntu)</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">ServiceNow</span>
+          <span class="skill-tag">Device Config</span>
+          <span class="skill-tag">Remote Support</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <span class="skill-cat">Cloud &amp; Networking</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Microsoft Azure</span>
+          <span class="skill-tag">TCP/IP</span>
+          <span class="skill-tag">DNS / DHCP</span>
+          <span class="skill-tag">VPN</span>
+          <span class="skill-tag">UFW / Firewall</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <span class="skill-cat">Scripting &amp; Automation</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Log Analysis</span>
+          <span class="skill-tag">MITRE ATT&amp;CK</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="skill-cat">Security Fundamentals</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">ISO 27001</span>
+          <span class="skill-tag">NIST CSF</span>
+          <span class="skill-tag">Incident Response</span>
+          <span class="skill-tag">Risk Analysis</span>
+          <span class="skill-tag">Nmap</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <span class="skill-cat">Documentation &amp; GRC</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">SOP Writing</span>
+          <span class="skill-tag">IT Auditing</span>
+          <span class="skill-tag">GRC Bootcamp</span>
+          <span class="skill-tag">Access Control</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">Work history</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date">Jan 2025<br>Present</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Patient Services <span class="tl-badge">Current</span></div>
+          <div class="tl-company">Bupa Cromwell Hospital</div>
+          <ul class="tl-bullets">
+            <li>Deliver timely, patient-centred service in a regulated healthcare environment, building habits of accuracy, confidentiality and clear communication under pressure.</li>
+            <li>Coordinate with clinical and facilities teams, logging requests and escalating issues through the right channels. This maps directly to ticket management and escalation workflows.</li>
+            <li>Maintain composure and professionalism in high-stakes, unpredictable situations, skills that transfer directly to 1st-line support interactions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Aug&ndash;Dec<br>2024</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Cyber Security Intern</div>
+          <div class="tl-company">CyPro</div>
+          <ul class="tl-bullets">
+            <li>Owned the <strong>full JML (Joiners, Movers, Leavers) process</strong> in Microsoft Entra ID: provisioning accounts, assigning Microsoft 365 licences, configuring MFA, and deprovisioning leavers to company policy.</li>
+            <li>Configured endpoint devices and managed user permissions, resolving access issues and walking colleagues through authentication problems.</li>
+            <li>Wrote and maintained internal SOPs that reduced onboarding time and gave the team a consistent reference for repeatable IT tasks.</li>
+            <li>Produced 10 security assessment and incident reports, combining technical investigation with clear written communication for both technical and non-technical stakeholders.</li>
+            <li>Contributed to vulnerability assessments using Nmap, supporting the team's understanding of the attack surface.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jun 2024</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Technology Intern</div>
+          <div class="tl-company">Bright Network (IEUK)</div>
+          <ul class="tl-bullets">
+            <li>Completed an intensive technology-focused internship experience, engaging with technical case studies and structured problem-solving across software and infrastructure challenges.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jan 2023<br>Apr 2024</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">International Student Ambassador</div>
+          <div class="tl-company">University of West London</div>
+          <ul class="tl-bullets">
+            <li>Represented the university at open days and outreach events, advising prospective students and demonstrating clear, confident communication with unfamiliar audiences.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2024&ndash;25</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-role">Peer Mentor</div>
+          <div class="tl-company">University of West London · Volunteering</div>
+          <ul class="tl-bullets">
+            <li>Mentored first-year cyber security students through technical concepts, lab work, and exam preparation, building the ability to explain complex topics in accessible terms (20+ hours).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="casestudies">
+    <p class="section-label">IT Support in practice</p>
+    <h2 class="section-title">Troubleshooting Case Studies</h2>
+    <div class="divider"></div>
+    <p style="font-size:14px;color:var(--fg-2);margin:0 0 18px;max-width:640px">Worked scenarios showing how I diagnose, fix and verify common helpdesk problems, from the first question to the ticket notes.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:4px">
+
+      <!-- Case 1 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 01</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">Windows Service Failure: Print Spooler</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">User reports: printer not found after Windows Update. No queue visible, other users on the same network unaffected.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Opened <strong>Event Viewer</strong> (System log) and found Event ID 7034: Print Spooler service terminated unexpectedly. Checked <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">services.msc</code> and confirmed Spooler was stopped and set to Manual instead of Automatic.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Resolution</div>
+            <div style="font-size:13px;color:var(--fg-2)">Cleared corrupted driver files from <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">C:\Windows\System32\spool\drivers</code> via PowerShell, set Spooler back to Automatic, restarted service.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Verification</div>
+            <div style="font-size:13px;color:var(--fg-2)">Confirmed printer reappeared in Devices and Printers, test page printed successfully. Logged resolution in ticket with steps for recurrence.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">Windows 11</span>
+          <span class="proj-tag">Event Viewer</span>
+          <span class="proj-tag">PowerShell</span>
+          <span class="proj-tag">Services</span>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 02</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">DNS Resolution Failure: Site Unreachable</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">User reports: internal intranet site timing out. External sites work fine. Issue is isolated to this workstation.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Ran <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ping intranet.corp</code>: request timed out. Ran <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">nslookup intranet.corp</code>: returned wrong IP (stale cache). Ran <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /all</code>: DNS server pointed to 8.8.8.8 (Google) instead of the internal DNS server, likely changed during VPN install.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Resolution</div>
+            <div style="font-size:13px;color:var(--fg-2)">Updated DNS server address in network adapter settings to the correct internal DNS IP. Flushed DNS cache with <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /flushdns</code> and registered with <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /registerdns</code>.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Verification</div>
+            <div style="font-size:13px;color:var(--fg-2)"><code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">nslookup</code> now returned correct internal IP. Site loaded. Escalated root cause (VPN installer overwriting DNS) to network team to prevent recurrence.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">DNS</span>
+          <span class="proj-tag">nslookup</span>
+          <span class="proj-tag">ipconfig</span>
+          <span class="proj-tag">Networking</span>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 03</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">MFA Enforcement Review: Microsoft Entra ID</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">During my internship at CyPro, I managed approximately 30 user identities in Microsoft Entra ID and identified that MFA was not consistently enforced, leaving accounts exposed to unauthorised access.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Reviewed sign-in logs to identify accounts without MFA registered. Assessed available authentication methods (Microsoft Authenticator, SMS, hardware token) to determine the most practical option for the team and the impact on day-to-day users.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Proposal</div>
+            <div style="font-size:13px;color:var(--fg-2)">Proposed an MFA enforcement policy, outlining the security benefit and user impact. Recommended a phased rollout starting with a pilot group to avoid locking users out. Flagged the need for administrator approval before configuring the Conditional Access policy.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Outcome</div>
+            <div style="font-size:13px;color:var(--fg-2)">Proposal was approved and taken forward. Supported users in registering their authentication methods and verified enforcement through sign-in logs. All 30 identities brought into MFA compliance, significantly reducing the risk of credential-based attacks.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">Microsoft Entra ID</span>
+          <span class="proj-tag">MFA</span>
+          <span class="proj-tag">Conditional Access</span>
+          <span class="proj-tag">Identity &amp; Access</span>
+          <span class="proj-tag">Azure AD</span>
+        </div>
+      </div>
+
+      <!-- Case 4 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 04</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">Account Lockout: User Cannot Sign In</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">User reports: &ldquo;account locked&rdquo; message when signing in on Monday morning after changing their password last week. Phone and laptop both affected.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Confirm the user&rsquo;s identity first, following the verification policy. Check the account status in Active Directory Users and Computers, or the failure reason in the Entra ID sign-in logs (error <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">50053</code> means locked by Smart Lockout). On a domain controller, Event ID <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">4740</code> shows which device is causing the lockouts. Most often it is an old password saved on a phone mail app, mapped drive or Credential Manager.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Resolution</div>
+            <div style="font-size:13px;color:var(--fg-2)">Unlock the account, then have the user update the saved password on every device that still uses the old one. If needed, reset the password with &ldquo;must change at next sign-in&rdquo; and share the temporary password through an approved secure channel, never by email or chat.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Verification</div>
+            <div style="font-size:13px;color:var(--fg-2)">User signs in successfully on laptop and phone. Watch for a repeat lockout over the next 30 minutes. Record the root cause (stale saved credentials) and advice given in the ticket. If lockouts continue or come from unknown locations, escalate to the security team as possible password guessing.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">Active Directory</span>
+          <span class="proj-tag">Microsoft Entra ID</span>
+          <span class="proj-tag">Event ID 4740</span>
+          <span class="proj-tag">Password Reset</span>
+        </div>
+      </div>
+
+      <!-- Case 5 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 05</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">VPN Failure: Remote User Cannot Connect</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">User reports: working from home, VPN client shows &ldquo;connection timed out&rdquo;. Home internet and Teams work normally.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Confirm the internet works (<code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ping 8.8.8.8</code>), then check whether other remote users are affected to separate a single-user fault from a gateway outage. Check the client version, the saved credentials and MFA prompt, the account status, and the system clock (a wrong clock breaks certificate checks). Test on a mobile hotspot: if it connects there, the home router or ISP is blocking VPN traffic.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Resolution</div>
+            <div style="font-size:13px;color:var(--fg-2)">Fix the cause found: update or reinstall the client, correct the clock, re-register MFA, unlock or reset the account, or advise the user to switch networks. If several users are affected or the gateway is not responding, escalate to the network team with the error message, time, affected users and the checks already done.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Verification</div>
+            <div style="font-size:13px;color:var(--fg-2)">User connects and opens an internal resource by name, such as the intranet or a file share, which also confirms DNS works over the tunnel. Record the cause and fix in the ticket. If it was an escalation, keep the user updated until it is closed.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">VPN</span>
+          <span class="proj-tag">Troubleshooting</span>
+          <span class="proj-tag">Windows 11</span>
+          <span class="proj-tag">Escalation</span>
+        </div>
+      </div>
+
+      <!-- Case 6 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Case Study 06</div>
+        <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px">Wi-Fi Connected but No Internet</div>
+        <div style="font-size:13px;color:var(--fg-2);margin-bottom:14px">User reports: laptop shows &ldquo;connected&rdquo; to the office Wi-Fi but no website loads. Colleagues nearby are fine.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Diagnosis</div>
+            <div style="font-size:13px;color:var(--fg-2)">Run <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /all</code>. An address starting <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">169.254</code> means the laptop failed to get an IP from DHCP. If it has a valid address, test the gateway (<code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ping</code> the default gateway), then an external IP, then a website name to separate a network fault from a DNS fault. Check whether the problem follows the device or the location.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Resolution</div>
+            <div style="font-size:13px;color:var(--fg-2)">Run <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /release</code> then <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ipconfig /renew</code>. If that fails, toggle the adapter, forget and rejoin the network, and update the Wi-Fi driver. If several devices cannot get an address, the DHCP scope may be exhausted or the server down, so escalate to the network team.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px">Verification</div>
+            <div style="font-size:13px;color:var(--fg-2)">The laptop has a valid IP, gateway and DNS server. <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">ping</code> an external address and <code style="background:var(--tag-bg);color:var(--tag-fg);padding:1px 5px;border-radius:4px;font-size:12px">nslookup</code> a website both succeed, and a page loads. Log the cause and fix in the ticket.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <span class="proj-tag">DHCP</span>
+          <span class="proj-tag">ipconfig</span>
+          <span class="proj-tag">Wi-Fi</span>
+          <span class="proj-tag">Networking</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Technical work</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <a href="https://github.com/poushali-m/it-support-practicals" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">IT Support</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">IT Support Practicals</div>
+        <div class="proj-desc">Documented real troubleshooting scenarios: Windows service failures, DNS resolution faults, and network connectivity issues. Each case includes the symptom, diagnostic steps (Event Viewer, ipconfig, nslookup, ping), root cause, fix, and verification. Built to reflect first-line service desk practice.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Windows 10/11</span>
+          <span class="proj-tag">DNS / DHCP</span>
+          <span class="proj-tag">Troubleshooting</span>
+          <span class="proj-tag">ServiceNow</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/entra-id-iam-lab" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">IAM</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">Microsoft Entra ID: User Lifecycle Lab</div>
+        <div class="proj-desc">Hands-on Joiners, Movers, and Leavers lab using Microsoft Entra ID. Covers account creation, licence assignment, MFA enforcement, role-based access control, and secure offboarding. Mirrors the real JML process managed at CyPro across approximately 30 identities.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Entra ID</span>
+          <span class="proj-tag">MFA</span>
+          <span class="proj-tag">RBAC</span>
+          <span class="proj-tag">JML</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/active-directory-lab" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">AD Lab</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">Active Directory Home Lab</div>
+        <div class="proj-desc">Built a Windows Server 2022 Domain Controller in VMware Workstation to practise on-premises Active Directory. Set up OUs for IT, HR and Finance, created user accounts, performed password resets, disabled leavers and managed security group membership. Mirrors real 1st Line Support workflows.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Windows Server 2022</span>
+          <span class="proj-tag">Active Directory</span>
+          <span class="proj-tag">VMware</span>
+          <span class="proj-tag">1st Line Support</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/log-analyser" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">Python</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">SSH Log Analyser</div>
+        <div class="proj-desc">Command-line tool that parses Linux auth.log files to detect brute-force patterns, calculate attack velocity, flag post-compromise logins, and export a structured incident report. Built with Python standard library only.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Log Analysis</span>
+          <span class="proj-tag">MITRE T1110</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/soc-siem-lab" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">SOC Lab</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">Home SOC Lab: ELK Stack</div>
+        <div class="proj-desc">Configured Elasticsearch, Logstash, and Kibana in a home lab to ingest and visualise system logs. Built detection rules to surface anomalous activity. Hands-on SIEM experience outside of an employer's environment.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">ELK Stack</span>
+          <span class="proj-tag">SIEM</span>
+          <span class="proj-tag">Linux</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/insider-threat-detection" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">ML</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">Behavioural Risk Scoring Model</div>
+        <div class="proj-desc">Machine learning model (Random Forest) trained to detect insider threat patterns from behavioural data. Deployed as a Streamlit dashboard with risk scoring visualisation. Dissertation project, First Class.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">scikit-learn</span>
+          <span class="proj-tag">Streamlit</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/soc-threat-detection-lab" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">IR Lab</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">SOC Analyst Threat Detection Lab</div>
+        <div class="proj-desc">End-to-end lab covering log ingestion, threat hunting, and incident response steps. Documented investigation methodology for an SSH brute-force scenario from initial alert to containment recommendation.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">SIEM</span>
+          <span class="proj-tag">Incident Response</span>
+          <span class="proj-tag">Linux</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/iso27001-governance-framework" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">GRC</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">ISO 27001 Governance Framework</div>
+        <div class="proj-desc">Produced a complete ISO 27001:2022 governance framework for a real business (Bluefrontier), including risk register, policy documents, and control mapping. Demonstrates understanding of compliance requirements IT teams operate within.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">ISO 27001</span>
+          <span class="proj-tag">GRC</span>
+          <span class="proj-tag">Risk</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/poushali-m/vulnerability-assessment-lab" target="_blank" class="proj-card">
+        <div class="proj-header">
+          <span class="proj-icon">Vuln</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <div class="proj-title">Vulnerability Assessment Lab</div>
+        <div class="proj-desc">Ran a structured network vulnerability assessment using Nmap, documented findings with CVSS scoring and risk-ranked remediation recommendations in a professional-style report.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Nmap</span>
+          <span class="proj-tag">CVSS</span>
+          <span class="proj-tag">Reporting</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">Qualifications</p>
+    <h2 class="section-title">Education</h2>
+    <div class="divider"></div>
+    <div class="edu-grid">
+      <div class="edu-item edu-highlight">
+        <div>
+          <div class="edu-title">BSc (Hons) Cyber Security, First Class Honours</div>
+          <div class="edu-org">University of West London</div>
+        </div>
+        <div class="edu-date">Jan 2023 – Jan 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <p class="section-label">Learning &amp; development</p>
+    <h2 class="section-title">Certifications</h2>
+    <div class="divider"></div>
+    <div class="cert-grid">
+      <a href="#" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        IT Auditing &amp; GRC Bootcamp, ThinkCloudly (Nov 2025)
+      </a>
+      <a href="#" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        Internship Experience UK, Technology, Bright Network (Jun 2024)
+      </a>
+      <a href="#" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Excel Essential Training, Microsoft 365 (Feb 2025)
+      </a>
+      <a href="#" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Python Quick Start (Jul 2024)
+      </a>
+      <a href="#" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        Google Digital Marketing (Oct 2021)
+      </a>
+      <a href="https://github.com/poushali-m/htb-writeups" target="_blank" class="cert-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        HTB: Linux Fundamentals + Windows Fundamentals
+      </a>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <p class="section-label">Writing</p>
+    <h2 class="section-title">Blog</h2>
+    <div class="divider"></div>
+    <div class="blog-list">
+      <a href="blog-bruteforce.html" class="blog-item">
+        <span class="blog-num">01</span>
+        <div>
+          <div class="blog-title">Detecting SSH Brute-Force Attacks with Python</div>
+          <div class="blog-desc">How I built a log analysis tool that automates what I used to do by hand: parsing auth.log, flagging attacker IPs, and calculating attack velocity.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="blog-iso27001.html" class="blog-item">
+        <span class="blog-num">02</span>
+        <div>
+          <div class="blog-title">Building an ISO 27001 Framework from Scratch</div>
+          <div class="blog-desc">A walkthrough of creating a real governance framework for a business, covering what the standard actually requires and where organisations go wrong.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="blog-mitre-attack.html" class="blog-item">
+        <span class="blog-num">03</span>
+        <div>
+          <div class="blog-title">Mapping Attacks to MITRE ATT&amp;CK: A Practical Guide</div>
+          <div class="blog-desc">Why the ATT&amp;CK framework is useful beyond CVEs and threat intel, and how to use it to reason about what an attacker does after initial access.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="blog-insider-threat.html" class="blog-item">
+        <span class="blog-num">04</span>
+        <div>
+          <div class="blog-title">Using Machine Learning to Detect Insider Threats</div>
+          <div class="blog-desc">The story behind my dissertation: why behavioural data is hard to analyse, how I built the model, and what I learned about the limits of automation.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="blog-tabletop.html" class="blog-item">
+        <span class="blog-num">05</span>
+        <div>
+          <div class="blog-title">Running a Tabletop Incident Response Exercise</div>
+          <div class="blog-desc">How to run a structured tabletop exercise that surfaces gaps in your IR process, and what I found when I did it for the first time.</div>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="divider"></div>
+    <p style="color:var(--fg-2);font-size:14px;margin-bottom:20px;max-width:480px">I'm actively looking for IT Support, Service Desk, and 1st Line Support roles in London. If you have a position or just want to connect, please reach out.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email</div>
+        <div class="contact-val">poushalisofficial@gmail.com</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Location</div>
+        <div class="contact-val">London, UK · Available immediately</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-val">linkedin.com/in/poushali23</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-val">github.com/poushali-m</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Poushali Majumder · London, UK</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px">BSc Cyber Security · First Class · UWL 2026</span>
+  </footer>
+
+</main>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('#sidebar-nav a');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -65% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+const menuBtn    = document.getElementById('menu-btn');
+const mobileNav  = document.getElementById('mobile-nav');
+const closeBtn   = document.getElementById('mobile-close');
+
+menuBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+closeBtn.addEventListener('click', () => mobileNav.classList.remove('open'));
+
+document.querySelectorAll('#mobile-nav-links a').forEach(a => {
+  a.addEventListener('click', () => mobileNav.classList.remove('open'));
+});
+</script>
+
+</body>
+</html>
